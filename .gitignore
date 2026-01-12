@@ -1,3 +1,6 @@
+SECURITY.md
+
+
 # Miscellaneous
 *.class
 *.log
@@ -43,3 +46,21 @@ app.*.map.json
 /android/app/debug
 /android/app/profile
 /android/app/release
+
+# Firebase & Security - DO NOT COMMIT THESE FILES
+# Firebase configuration files with sensitive data
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
+/lib/firebase_options.dart
+/android/local.properties
+*.keystore
+*.jks
+
+# Temporary files
+xxx_sha_keyleri_alma.txt
+*.txt.bak
+
+# Environment files
+.env
+.env.local
+.env.*.local
