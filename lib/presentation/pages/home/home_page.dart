@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../providers/auth_providers.dart';
+import '../todo/add_edit_todo_page.dart';
 import '../todo/todo_list_page.dart';
 
 class HomePage extends ConsumerWidget {
@@ -48,7 +50,16 @@ class HomePage extends ConsumerWidget {
         ],
       ),
       body: const TodoListPage(),
+      floatingActionButton: FloatingActionButton.extended(
+        onPressed: () {
+          Navigator.push(
+            context,
+            MaterialPageRoute(builder: (context) => const AddEditTodoPage()),
+          );
+        },
+        icon: const Icon(Icons.add),
+        label: const Text('Yeni Todo'),
+      ),
     );
   }
 }
-
