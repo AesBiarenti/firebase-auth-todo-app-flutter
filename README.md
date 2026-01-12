@@ -53,23 +53,33 @@ flutter pub get
 3. `google-services.json` dosyasını indirin
 4. Dosyayı `android/app/` klasörüne kopyalayın
 
-#### Firebase Options dosyası
+#### Environment Variables Yapılandırması
 
-1. FlutterFire CLI ile yapılandırın:
+Proje, Firebase yapılandırması için environment variable'ları kullanır. Bu sayede hassas bilgiler kod içinde saklanmaz.
+
+1. `.env.example` dosyasını `.env` olarak kopyalayın:
 
 ```bash
-flutterfire configure
+cp .env.example .env
 ```
 
-Veya manuel olarak:
+2. `.env` dosyasını açın ve Firebase Console'dan alacağınız değerleri doldurun:
 
-1. `lib/firebase_options.example.dart` dosyasını `lib/firebase_options.dart` olarak kopyalayın
-2. Firebase Console'dan alacağınız değerleri doldurun:
-   - `apiKey`
-   - `appId`
-   - `messagingSenderId`
-   - `projectId`
-   - `storageBucket`
+```env
+FIREBASE_API_KEY=your_api_key_here
+FIREBASE_APP_ID=your_app_id_here
+FIREBASE_MESSAGING_SENDER_ID=your_messaging_sender_id_here
+FIREBASE_PROJECT_ID=your_project_id_here
+FIREBASE_STORAGE_BUCKET=your_storage_bucket_here
+```
+
+**Not:** `.env` dosyası `.gitignore`'da olduğu için commit edilmeyecektir.
+
+**Alternatif:** Eğer `.env` dosyası kullanmak istemiyorsanız, `--dart-define` flag'i ile değerleri geçebilirsiniz:
+
+```bash
+flutter run --dart-define=FIREBASE_API_KEY=your_key --dart-define=FIREBASE_APP_ID=your_id ...
+```
 
 ### 4. Firestore Security Rules
 
@@ -127,12 +137,14 @@ lib/
 
 **ÖNEMLİ:** Bu proje public bir repository'dir. Aşağıdaki dosyalar `.gitignore`'a eklenmiştir ve commit edilmemelidir:
 
-- `lib/firebase_options.dart` - Firebase API key'leri içerir
+- `lib/firebase_options.dart` - Firebase API key'leri içerir (artık environment variable kullanıyor)
 - `android/app/google-services.json` - Firebase yapılandırması
 - `android/local.properties` - Local yapılandırma
-- `.env` dosyaları
+- `.env` dosyaları - Environment variable'lar (hassas bilgiler)
 
-Kendi Firebase projenizi oluşturup yapılandırmanız gerekmektedir.
+**Güvenlik İyileştirmesi:** Firebase yapılandırması artık `.env` dosyasından veya `--dart-define` flag'leri ile yapılmaktadır. Bu sayede hassas bilgiler kod içinde saklanmaz.
+
+Kendi Firebase projenizi oluşturup `.env` dosyasını yapılandırmanız gerekmektedir.
 
 ## 📝 Kullanım
 

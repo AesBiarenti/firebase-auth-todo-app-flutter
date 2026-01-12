@@ -3,14 +3,23 @@ import 'package:firebase_todo_app/core/theme/app_theme.dart';
 import 'package:firebase_todo_app/core/widgets/auth_wrapper.dart';
 import 'package:firebase_todo_app/firebase_options.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_localizations/flutter_localizations.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  try {
+    await dotenv.load(fileName: '.env');
+  } catch (e) {
+    debugPrint(
+      'Warning: .env file not found. Using --dart-define or default values.',
+    );
+  }
+
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
-  // Türkçe locale için date formatting'i başlat
   await initializeDateFormatting('tr_TR', null);
   runApp(const ProviderScope(child: MyApp()));
 }
