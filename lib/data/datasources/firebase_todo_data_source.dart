@@ -14,12 +14,16 @@ class FirebaseTodoDataSource {
       final querySnapshot = await _firestore
           .collection(AppConstants.todosCollection)
           .where('userId', isEqualTo: userId)
-          .orderBy('createdAt', descending: true)
           .get();
 
-      return querySnapshot.docs
+      final todos = querySnapshot.docs
           .map((doc) => TodoModel.fromFirestore(doc))
           .toList();
+      
+      // Client tarafında sıralama (index gerektirmez)
+      todos.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+      
+      return todos;
     } catch (e) {
       throw Exception('Todolar getirilirken hata oluştu: $e');
     }
@@ -30,11 +34,16 @@ class FirebaseTodoDataSource {
     return _firestore
         .collection(AppConstants.todosCollection)
         .where('userId', isEqualTo: userId)
-        .orderBy('createdAt', descending: true)
         .snapshots()
         .map(
-          (snapShot) =>
-              snapShot.docs.map((doc) => TodoModel.fromFirestore(doc)).toList(),
+          (snapShot) {
+            final todos = snapShot.docs
+                .map((doc) => TodoModel.fromFirestore(doc))
+                .toList();
+            // Client tarafında sıralama (index gerektirmez)
+            todos.sort((a, b) => b.createdAt.compareTo(a.createdAt));
+            return todos;
+          },
         );
   }
 
