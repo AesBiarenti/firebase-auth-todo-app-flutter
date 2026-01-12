@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
 import '../../presentation/pages/auth/login_page.dart';
 import '../../presentation/pages/home/home_page.dart';
 import '../../presentation/providers/auth_providers.dart';
@@ -19,17 +20,10 @@ class AuthWrapper extends ConsumerWidget {
           return const LoginPage();
         }
       },
-      loading: () => const Scaffold(
-        body: Center(
-          child: CircularProgressIndicator(),
-        ),
-      ),
-      error: (error, stack) => Scaffold(
-        body: Center(
-          child: Text('Hata: $error'),
-        ),
-      ),
+      loading: () =>
+          const Scaffold(body: Center(child: CircularProgressIndicator())),
+      error: (error, stack) =>
+          Scaffold(body: Center(child: Text('Hata: $error'))),
     );
   }
 }
-
