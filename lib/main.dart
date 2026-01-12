@@ -1,4 +1,5 @@
 import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_todo_app/core/theme/app_theme.dart';
 import 'package:firebase_todo_app/firebase_options.dart';
 import 'package:firebase_todo_app/main_page.dart';
 import 'package:flutter/material.dart';
@@ -16,7 +17,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Material App',
+      title: 'Todo App',
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       home: MainPage(),
     );
   }
