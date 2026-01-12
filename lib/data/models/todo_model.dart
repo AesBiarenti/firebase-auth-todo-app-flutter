@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 import '../../domain/entities/todo.dart';
 
 class TodoModel extends Todo {
@@ -59,9 +60,7 @@ class TodoModel extends Todo {
       'updatedAt': updatedAt != null
           ? Timestamp.fromDate(updatedAt!)
           : FieldValue.serverTimestamp(),
-      'dueDate': dueDate != null
-          ? Timestamp.fromDate(dueDate!)
-          : null,
+      'dueDate': dueDate != null ? Timestamp.fromDate(dueDate!) : null,
       'userId': userId,
     };
   }
@@ -77,6 +76,30 @@ class TodoModel extends Todo {
       updatedAt: updatedAt,
       dueDate: dueDate,
       userId: userId,
+    );
+  }
+
+  // TodoModel için copyWith - TodoModel döndürür
+  @override
+  TodoModel copyWith({
+    String? id,
+    String? title,
+    String? description,
+    TodoStatus? status,
+    DateTime? createdAt,
+    DateTime? updatedAt,
+    DateTime? dueDate,
+    String? userId,
+  }) {
+    return TodoModel(
+      id: id ?? this.id,
+      title: title ?? this.title,
+      description: description ?? this.description,
+      status: status ?? this.status,
+      createdAt: createdAt ?? this.createdAt,
+      updatedAt: updatedAt ?? this.updatedAt,
+      dueDate: dueDate ?? this.dueDate,
+      userId: userId ?? this.userId,
     );
   }
 }
