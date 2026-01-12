@@ -6,11 +6,11 @@ enum TodoStatus {
   String get displayName {
     switch (this) {
       case TodoStatus.pending:
-        return "Beklemede";
+        return 'Beklemede';
       case TodoStatus.inProgress:
-        return "Devam Ediyor";
+        return 'Devam Ediyor';
       case TodoStatus.completed:
-        return "Tamamlandı";
+        return 'Tamamlandı';
     }
   }
 }
@@ -21,21 +21,22 @@ class Todo {
   final String description;
   final TodoStatus status;
   final DateTime createdAt;
-  final DateTime updatedAt;
-  final DateTime dueDate;
-  final String userId;
+  final DateTime? updatedAt;
+  final DateTime? dueDate;
+  final String userId; // Hangi kullanıcıya ait olduğu
 
-  Todo({
+  const Todo({
     required this.id,
     required this.title,
     required this.description,
     required this.status,
     required this.createdAt,
-    required this.updatedAt,
-    required this.dueDate,
+    this.updatedAt,
+    this.dueDate,
     required this.userId,
   });
 
+  // CopyWith metodu - güncellemeler için
   Todo copyWith({
     String? id,
     String? title,
@@ -58,6 +59,7 @@ class Todo {
     );
   }
 
+  // Equality override
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
